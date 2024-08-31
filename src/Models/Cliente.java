@@ -1,9 +1,12 @@
 package Models;
 
+import Exceptions.EmailInvalidoException;
+import Exceptions.EnderecoInvalidoException;
+import Exceptions.NomeInvalidoException;
+import Exceptions.SenhaInvalidoException;
+
 public class Cliente extends Usuario{
-    String endereco;
-    public Cliente(int id, String nome, String email, String senha, String endereco) {
-        super(id, nome, email, senha);
-        this.endereco = endereco;
+    public Cliente(int id, String nome, String email, String senha, String endereco) throws NomeInvalidoException, EmailInvalidoException, EnderecoInvalidoException, SenhaInvalidoException {
+        super(id, nome, email, senha, endereco);
     }
 }

@@ -2,10 +2,10 @@ package Models;
 
 import Exceptions.*;
 
-import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Sistema {
-    ArrayList<Usuario> listaUsuarios = new ArrayList<Usuario>();
+    HashMap<Integer, Usuario> mapUsuarios = new HashMap<Integer, Usuario>();
 
     int contadorID = 1;
 
@@ -13,17 +13,27 @@ public class Sistema {
 
     }
 
-    public void criarUsuario(String nome, String email, String senha, String endereco) throws UsuarioNaoCadastradoException, NomeInvalidoException, EmailInvalidoException, SenhaInvalidoException, EnderecoInvalidoException {
-        Usuario.validaUsuario(nome, email, senha, endereco);
+    public static boolean buscarUsuarioPorId(HashMap<Integer, Usuario> mapaUsuarios, int id) throws UsuarioNaoCadastradoException {
+        if (!mapaUsuarios.containsKey(id)) {
+            throw new UsuarioNaoCadastradoException();
+        } else {
+            return true;
+        }
+    }
+
+    public void criarUsuario(String nome, String email, String senha, String endereco) throws NomeInvalidoException, EmailInvalidoException, SenhaInvalidoException, EnderecoInvalidoException, EmailJaExisteException {
+        if (Usuario.buscaUsuarioPorEmail(mapUsuarios, email)) {
+            throw new EmailJaExisteException();
+        }
         Cliente cliente = new Cliente(contadorID, nome, email, senha, endereco);
-        listaUsuarios.add(cliente);
+        mapUsuarios.put(contadorID ,cliente);
         contadorID++;
     }
 
-    public void criarUsuario(String nome, String email, String senha, String endereco, String cpf) throws UsuarioNaoCadastradoException, NomeInvalidoException, EmailInvalidoException, EnderecoInvalidoException, SenhaInvalidoException, CpfInvalidoException {
-        DonoRestaurante.validaUsuario(nome, email, senha, endereco, cpf);
+    public void criarUsuario(String nome, String email, String senha, String endereco, String cpf) throws NomeInvalidoException, EmailInvalidoException, EnderecoInvalidoException, SenhaInvalidoException, CpfInvalidoException, EmailJaExisteException {
+        Usuario.buscaUsuarioPorEmail(mapUsuarios, email);
         DonoRestaurante donoRestaurante = new DonoRestaurante(contadorID, nome, email, senha, endereco, cpf);
-        listaUsuarios.add(donoRestaurante);
+        mapUsuarios.put(contadorID ,donoRestaurante);
         contadorID++;
     }
 
@@ -33,5 +43,9 @@ public class Sistema {
         } else {
             throw new UsuarioNaoCadastradoException();
         }
+    }
+
+    public void encerrarSistema() {
+
     }
 }
