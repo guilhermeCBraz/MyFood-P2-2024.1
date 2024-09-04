@@ -23,6 +23,8 @@ public class Facade {
             return sistema.getAtributoUsuario(id, atributo);
         }
 
+        public int login(String email, String senha)throws LoginSenhaInvalidosException{return sistema.login(email, senha);}
+
 
         public void encerrarSistema() {
             sistema.encerrarSistema();

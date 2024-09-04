@@ -9,4 +9,9 @@ public class Cliente extends Usuario{
     public Cliente(int id, String nome, String email, String senha, String endereco) throws NomeInvalidoException, EmailInvalidoException, EnderecoInvalidoException, SenhaInvalidoException {
         super(id, nome, email, senha, endereco);
     }
+
+    @Override
+    public boolean isDonoRestaurante() {
+        return false;
+    }
 }

@@ -12,18 +12,16 @@ public abstract class Usuario {
     private String endereco;
 
     public Usuario(int id, String nome, String email, String senha, String endereco) throws NomeInvalidoException, EmailInvalidoException, SenhaInvalidoException, EnderecoInvalidoException {
-        this.id = id;
 
-        if(nome == null || nome.isEmpty()) {throw new NomeInvalidoException();}
+        verificaNome(nome);
+        verificaSenha(senha);
+        verificaEndereco(endereco);
+        verificaEmail(email);
+
         this.nome = nome;
-
-//        if(email == null || email.isEmpty()) {throw new EmailInvalidoException();}
         this.email = email;
-
-//        if(senha == null || senha.isEmpty()) {throw new SenhaInvalidoException();}
         this.senha = senha;
-
-//        if(endereco == null || endereco.isEmpty()) {throw new EnderecoInvalidoException();}
+        this.id = id;
         this.endereco = endereco;
 
     }
@@ -36,6 +34,8 @@ public abstract class Usuario {
 
     public String getSenha() {return senha;}
 
+    public String getEndereco(){return endereco;}
+
 
     public static boolean buscaUsuarioPorEmail(HashMap<Integer, Usuario> mapUsuarios, String email) throws EmailJaExisteException {
         for (Usuario usuario : mapUsuarios.values()) {
@@ -43,4 +43,26 @@ public abstract class Usuario {
         }
         return false;
     }
+
+    public  void verificaNome(String nome) throws NomeInvalidoException{
+        if(nome == null || nome.isEmpty()) {throw new NomeInvalidoException();}
+    }
+
+    public  void verificaSenha(String senha) throws SenhaInvalidoException{
+        if(senha == null || senha.isEmpty()) {throw new SenhaInvalidoException();}
+    }
+
+    public void verificaEndereco(String endereco) throws EnderecoInvalidoException{
+        if(endereco == null || endereco.isEmpty()){throw new EnderecoInvalidoException();}
+    }
+
+    public void verificaEmail(String email) throws EmailInvalidoException{
+        if(email == null || email.isEmpty()){throw new EmailInvalidoException();}
+        if(!email.matches("^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$")){
+            throw new EmailInvalidoException();
+        }
+
+    }
+
+    public abstract boolean isDonoRestaurante();
 }
