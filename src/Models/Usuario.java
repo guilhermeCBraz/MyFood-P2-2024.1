@@ -2,14 +2,23 @@ package Models;
 
 import Exceptions.*;
 
+import java.io.Serializable;
 import java.util.HashMap;
 
-public abstract class Usuario {
+public abstract class Usuario implements Serializable {
+    //private static final long serialVersionUID = 1L;
     private int id;
     private String nome;
     private String email;
     private String senha;
     private String endereco;
+
+    public Usuario(){
+
+    }
+
+    public abstract String getTipoUsuario();
+
 
     public Usuario(int id, String nome, String email, String senha, String endereco) throws NomeInvalidoException, EmailInvalidoException, SenhaInvalidoException, EnderecoInvalidoException {
 
@@ -36,6 +45,25 @@ public abstract class Usuario {
 
     public String getEndereco(){return endereco;}
 
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public void setSenha(String senha) {
+        this.senha = senha;
+    }
+
+    public void setEndereco(String endereco) {
+        this.endereco = endereco;
+    }
 
     public static boolean buscaUsuarioPorEmail(HashMap<Integer, Usuario> mapUsuarios, String email) throws EmailJaExisteException {
         for (Usuario usuario : mapUsuarios.values()) {
