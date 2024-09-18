@@ -13,6 +13,7 @@ import Models.Empresa;
 import Database.PersistenciaUsuario;
 import Database.PersistenciaEmpresas;
 import Database.PersistenciaProdutos;
+import Database.PersistenciaPedidos;
 public class Sistema {
 
     //HashMap<Integer, Usuario> mapUsuarios = new HashMap<Integer, Usuario>(); /// Usado para armazenar
@@ -20,7 +21,8 @@ public class Sistema {
     //HashMap<Integer, Empresa> mapEmpresas = new HashMap<Integer, Empresa>();
     HashMap<Integer, Empresa> mapEmpresas = PersistenciaEmpresas.carregarDados();
     HashMap<Integer, Produto> mapProdutos = PersistenciaProdutos.carregarDados();
-    HashMap<Integer, Pedido> mapPedidos = new HashMap<Integer, Pedido>();
+    HashMap<Integer, Pedido> mapPedidos = PersistenciaPedidos.carregarDados();
+    //HashMap<Integer, Pedido> mapPedidos = new HashMap<Integer, Pedido>();
 
 
 
@@ -36,10 +38,12 @@ public class Sistema {
         mapUsuarios2 = null;
         mapEmpresas = null;
         mapProdutos = null;
+        mapPedidos = null;
 
         PersistenciaUsuario.apagarDados();
         PersistenciaEmpresas.apagarDados();
         PersistenciaProdutos.apagarDados();
+        PersistenciaPedidos.apagarDados();
 
 
     }
@@ -358,6 +362,9 @@ public class Sistema {
     //MÉTODOS DO PEDIDO
 
     public int criarPedido(int cliente, int empresa) throws DonoNaoPodePedirExcepition, DoisPedidosAbertosException{
+        if(mapPedidos == null){
+            mapPedidos = new HashMap<Integer, Pedido>();
+        }
         //Verificar se cliente não é Dono de Restaurante
         Usuario user = mapUsuarios2.get(cliente);
         Empresa empre = mapEmpresas.get(empresa);
@@ -461,8 +468,17 @@ public class Sistema {
             case "estado":
                 return pedido.getEstado();
             case "produtos":
-                String x = pedido.getProdutos();
-                return x;
+                List<Produto> x = pedido.getProdutos();
+                StringBuilder sb = new StringBuilder("{[");
+                boolean first = true;
+
+                for (Produto produto : x) {
+                    if (!first){ sb.append(", ");}
+                    sb.append(produto.getNome());
+                    first = false;
+                }
+                sb.append("]}");
+                return sb.toString();
             case "valor":
                 return decimalFormat.format(pedido.calcularValor());
                 //return String.format("%.2f",);
@@ -470,6 +486,20 @@ public class Sistema {
                 throw new AtributoNaoExisteException();
         }
 
+    }
+    public int getNumeroPedido(int cliente, int empresa, int indice){
+        Usuario user = mapUsuarios2.get(cliente);
+        Empresa empre = mapEmpresas.get(empresa);
+        List<Pedido> pedidosDoCliente = new ArrayList<>();
+
+        for (Pedido pedido : mapPedidos.values()) {
+            if (pedido.getCliente().equals(user.getNome()) && pedido.getEmpresa().equals(empre.getNome())) {
+                pedidosDoCliente.add(pedido);
+            }
+        }
+        // Ordenar a lista pelo mais antigo (baseado no ID, assumindo que IDs são incrementais)
+        pedidosDoCliente.sort(Comparator.comparingInt(Pedido::getId));
+        return pedidosDoCliente.get(indice).getId();
     }
 
 
@@ -487,6 +517,8 @@ public class Sistema {
         PersistenciaUsuario.gravarDados(mapUsuarios2);
         PersistenciaEmpresas.gravarDados(mapEmpresas);
         PersistenciaProdutos.gravarDados(mapProdutos);
+        PersistenciaPedidos.gravarDados(mapPedidos);
+
 
 
 

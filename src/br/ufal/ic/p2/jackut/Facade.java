@@ -74,6 +74,9 @@ public class Facade {
         public String getPedidos(int numero, String atributo) throws AtributoInvalidoException, AtributoNaoExisteException{
             return sistema.getPedidos(numero, atributo);
         }
+        public int getNumeroPedido(int cliente, int empresa, int indice){
+            return sistema.getNumeroPedido(cliente, empresa, indice);
+        }
 
 
 
