@@ -9,7 +9,7 @@ import java.io.IOException;
 import java.util.HashMap;
 
 public class PersistenciaEmpresas {
-    static String caminho = "C:\\Users\\Usuario\\Desktop\\JR-P2\\src\\Database/Empresas.xml";
+    static String caminho = "src/Database/Empresas.xml";
 
     public static void gravarDados(HashMap<Integer, Empresa> mapUsuarios2){
 

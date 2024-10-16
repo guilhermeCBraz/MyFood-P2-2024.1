@@ -3,29 +3,6 @@
  <object class="java.util.HashMap">
   <void method="put">
    <int>1</int>
-   <object class="Models.DonoRestaurante">
-    <void property="cpf">
-     <string>544.732.410-68</string>
-    </void>
-    <void property="email">
-     <string>roberto@ufal.com.br</string>
-    </void>
-    <void property="endereco">
-     <string>Rua Exemplo N 321</string>
-    </void>
-    <void property="id">
-     <int>1</int>
-    </void>
-    <void property="nome">
-     <string>RobertoDono</string>
-    </void>
-    <void property="senha">
-     <string>123senha</string>
-    </void>
-   </object>
-  </void>
-  <void method="put">
-   <int>2</int>
    <object class="Models.Cliente">
     <void property="email">
      <string>carlos@ufal.com.br</string>
@@ -34,10 +11,33 @@
      <string>Rua Exemplo N 123</string>
     </void>
     <void property="id">
-     <int>2</int>
+     <int>1</int>
     </void>
     <void property="nome">
      <string>Carlos</string>
+    </void>
+    <void property="senha">
+     <string>123senha</string>
+    </void>
+   </object>
+  </void>
+  <void method="put">
+   <int>2</int>
+   <object class="Models.Dono">
+    <void property="cpf">
+     <string>544.732.410-68</string>
+    </void>
+    <void property="email">
+     <string>carlos2@ufal.com.br</string>
+    </void>
+    <void property="endereco">
+     <string>Rua Exemplo N 321</string>
+    </void>
+    <void property="id">
+     <int>2</int>
+    </void>
+    <void property="nome">
+     <string>CarlosDono</string>
     </void>
     <void property="senha">
      <string>123senha</string>

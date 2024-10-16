@@ -92,5 +92,5 @@ public abstract class Usuario implements Serializable {
 
     }
 
-    public abstract boolean isDonoRestaurante();
+
 }

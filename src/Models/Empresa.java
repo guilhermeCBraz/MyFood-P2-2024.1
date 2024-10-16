@@ -1,23 +1,29 @@
 package Models;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public class Empresa {
+public abstract class Empresa {
     private int id;
     private String nome;
     private String endereco;
-    private String tipoCozinha;
-    private DonoRestaurante dono;
+    private Dono dono;
+    private List<Entregador> entregadorList;
+
 
 
     public Empresa(){}
 
-    public Empresa(int id, String nome, String endereco, String tipoCozinha, DonoRestaurante dono) {
+
+    public abstract String getTipoEmpresa();
+
+    public Empresa(int id, String nome, String endereco, Dono dono) {
         this.id = id;
         this.nome = nome;
         this.endereco = endereco;
-        this.tipoCozinha = tipoCozinha;
         this.dono = dono;
+        this.entregadorList = new ArrayList<>();
+
     }
 
     public int getId() {
@@ -32,25 +38,22 @@ public class Empresa {
         return endereco;
     }
 
-    public String getTipoCozinha() {
-        return tipoCozinha;
+    public List<Entregador> getEntregadorList() {
+        return entregadorList;
     }
 
-    public DonoRestaurante getDono() {
-        return dono;
+    public void setEntregadorList(List<Entregador> entregadorList) {
+        this.entregadorList = entregadorList;
+    }
+
+    public void adicionarEntregador(Entregador entregador){
+        entregadorList.add(entregador);
     }
 
     public void setId(int id) {
         this.id = id;
     }
 
-    public void setDono(DonoRestaurante dono) {
-        this.dono = dono;
-    }
-
-    public void setTipoCozinha(String tipoCozinha) {
-        this.tipoCozinha = tipoCozinha;
-    }
 
     public void setEndereco(String endereco) {
         this.endereco = endereco;
@@ -58,6 +61,12 @@ public class Empresa {
 
     public void setNome(String nome) {
         this.nome = nome;
+    }
+    public Dono getDono() {
+        return dono;
+    }
+    public void setDono(Dono dono) {
+        this.dono = dono;
     }
 
     static String formatarEmpresas(List<String> empresas) {

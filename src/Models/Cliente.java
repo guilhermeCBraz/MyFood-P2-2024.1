@@ -21,9 +21,4 @@ public class Cliente extends Usuario{
     }
 
 
-
-    @Override
-    public boolean isDonoRestaurante() {
-        return false;
-    }
 }

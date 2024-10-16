@@ -10,7 +10,7 @@ import java.io.FileOutputStream;
 
 public class PersistenciaUsuario {
 
-    static String caminho = "C:\\Users\\Usuario\\Desktop\\JR-P2\\src\\Database/Usuarios.xml";
+    static String caminho = "src/Database/Usuarios.xml";
 
     public static void gravarDados(HashMap <Integer, Usuario> mapUsuarios2){
 

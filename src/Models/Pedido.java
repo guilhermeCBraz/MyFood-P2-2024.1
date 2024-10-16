@@ -77,6 +77,9 @@ public class Pedido {
     public void fecharPedido() {
         this.estado = "preparando";
     }
+    public void liberarPedido(){this.estado = "pronto";}
+    public void entregarPedido(){this.estado = "entregue";}
+    public void entregandoPedido(){this.estado = "entregando";}
 
     public void adicionarProduto(Produto produto) {
         produtos.add(produto);

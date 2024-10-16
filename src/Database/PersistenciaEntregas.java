@@ -1,6 +1,7 @@
 package Database;
+
 import Models.Empresa;
-import Models.Produto;
+import Models.Entrega;
 
 import java.beans.XMLDecoder;
 import java.beans.XMLEncoder;
@@ -9,10 +10,11 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.HashMap;
 
-public class PersistenciaProdutos {
-    static String caminho = "src/Database/Produtos.xml";
+public class PersistenciaEntregas {
+    static String caminho = "src/Database/Entregas.xml";
 
-    public static void gravarDados(HashMap<Integer, Produto> mapUsuarios2){
+
+    public static void gravarDados(HashMap<Integer, Entrega> mapUsuarios2){
 
         try (FileOutputStream fos = new FileOutputStream(caminho);
              XMLEncoder encoder = new XMLEncoder(fos)) {
@@ -22,15 +24,15 @@ public class PersistenciaProdutos {
         }
     }
 
-    public static HashMap<Integer, Produto> carregarDados() {
-        HashMap<Integer, Produto> userMap = null;
+    public static HashMap<Integer, Entrega> carregarDados() {
+        HashMap<Integer, Entrega> userMap = null;
 
         // Usando XMLDecoder para ler o arquivo XML e reconstruir o HashMap
         try (FileInputStream fis = new FileInputStream(caminho);
              XMLDecoder decoder = new XMLDecoder(fis)) {
 
             // Lendo o objeto (que será um HashMap)
-            userMap = (HashMap<Integer, Produto>) decoder.readObject();
+            userMap = (HashMap<Integer, Entrega>) decoder.readObject();
         } catch (Exception e) {
             e.printStackTrace();
         }
