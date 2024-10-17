@@ -1,11 +1,9 @@
 package Models;
 
-import Exceptions.EmailInvalidoException;
-import Exceptions.EnderecoInvalidoException;
-import Exceptions.NomeInvalidoException;
-import Exceptions.SenhaInvalidoException;
+import Exceptions.*;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class Entregador extends Usuario{
@@ -17,6 +15,7 @@ public class Entregador extends Usuario{
     public Entregador(){}
 
     public Entregador(int id, String nome, String email, String senha, String endereco, String veiculo, String placa) throws NomeInvalidoException, EmailInvalidoException, EnderecoInvalidoException, SenhaInvalidoException {
+
         super(id, nome, email, senha, endereco);
         this.veiculo = veiculo;
         this.placa = placa;
@@ -67,4 +66,5 @@ public class Entregador extends Usuario{
     public void entregadorOcupado() {
         this.status = "ocupado";
     }
+
 }

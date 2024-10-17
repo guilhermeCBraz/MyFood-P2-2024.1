@@ -624,9 +624,16 @@ public class Sistema {
         if(mapUsuarios2 == null){
             mapUsuarios2 = new HashMap<Integer, Usuario>();
         }
+
         Entregador entregador = new Entregador(contadorID, nome, email, senha, endereco, veiculo, placa);
         if(veiculo == null || veiculo.isEmpty()){throw new VeiculoInvalidoException();}
         if(placa == null || placa.isEmpty()){throw new PlacaInvalidoException();}
+        for(Usuario user: mapUsuarios2.values()){
+            if(user.getTipoUsuario().equals("Entregador")){
+                Entregador entre = (Entregador) user;
+                if(entre.getPlaca().equals(placa)){throw new PlacaInvalidoException();}
+            }
+        }
         if (Usuario.buscaUsuarioPorEmail(mapUsuarios2, email)) {
             throw new EmailJaExisteException();
         }
@@ -635,6 +642,7 @@ public class Sistema {
         entregador.verificaEmail(email);
         entregador.verificaSenha(senha);
         entregador.verificaEndereco(endereco);
+
 
         mapUsuarios2.put(contadorID ,entregador);
         contadorID++;
